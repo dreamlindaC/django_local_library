@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+    <h2>Name: {{ author.last_name }}, {{ author.first_name }}</h2>
+{% if author.date_of_death %}
+            ( {{ author.date_of_birth }} - {{ author.date_of_death }} )
+{% endif %}
+<p> <strong>book collected: </strong>
+    {% for book in author.book_set.all %}
+
+    <a href ="{% url 'catalog:book_detail' book.id %}" >{{ book.title }}</a>
+    {{ book.bookinstance_set.all.count }}
+
+
+    {% endfor %}</p>
+
+{% endblock %}

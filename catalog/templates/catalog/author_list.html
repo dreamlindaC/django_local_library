@@ -1,0 +1,45 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Author List</h1>
+
+{% if author_list %}
+<table>
+    {% for author in author_list %}
+    <TR>
+        <TD>
+           <strong>Name: </strong>
+        </TD>
+        <TD valign="top">
+        <a href="{% url 'catalog:author_detail' author.id %}">{{ author.last_name }}, {{ author.first_name }}</a>
+
+
+            {% if author.date_of_birth %}
+            ( {{ author.date_of_birth }} - {% if author.date_of_death %}{{ author.date_of_death }} {% endif %})
+            {% endif %}
+
+        </TD>
+    </TR>
+
+    <TR>
+        <TD>
+           Books collected:
+        </TD>
+        <TD>{% for book in author.book_set.all %}
+              <a href = "{% url 'catalog:book_detail' book.id %} ">{{ book.title }}</a>
+                <br>
+                {% endfor %}
+        </TD>
+
+    </TR>
+    {% endfor %}
+</table>
+
+{% else %}
+
+<p>There are no author in the library.</p>
+
+{% endif %}
+
+{% endblock %}
